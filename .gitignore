@@ -1,0 +1,7 @@
+/target
+/target_*
+*.o
+*.dSYM
+test-suite
+weather-cli
+.DS_Store
