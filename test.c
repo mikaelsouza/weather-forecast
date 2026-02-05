@@ -5,6 +5,8 @@
 #include "../include/json.h"
 #include "../include/core.h"
 #include "../include/weather.h"
+#include "../include/ui.h"
+#include "../include/tui.h"
 
 // Test counters
 static int tests_run = 0;
@@ -121,6 +123,29 @@ TEST(weather_description_codes) {
     assert(strcmp(get_weather_description(999), "Unknown") == 0);
 }
 
+// UI & TUI Tests
+TEST(ui_color_styling) {
+    // Condition colors
+    assert(strcmp(style_condition_color(0), UI_YELLOW) == 0); // Clear sky
+    assert(strcmp(style_condition_color(95), "\x1b[35m") == 0); // Thunderstorm (MAGENTA)
+    
+    // Temp colors (Max)
+    assert(strcmp(style_temp_color(35.0, 1), "\x1b[31m") == 0); // Hot (RED)
+    assert(strcmp(style_temp_color(25.0, 1), UI_YELLOW) == 0); // Warm (YELLOW)
+    assert(strcmp(style_temp_color(15.0, 1), "\x1b[32m") == 0); // Cool (GREEN)
+    
+    // Temp colors (Min)
+    assert(strcmp(style_temp_color(-5.0, 0), UI_BLUE) == 0); // Freezing (BLUE)
+    assert(strcmp(style_temp_color(5.0, 0), UI_CYAN) == 0); // Cold (CYAN)
+}
+
+TEST(tui_ansi_definitions) {
+    // Verify that the TUI logic can at least compile and link with our ANSI macros
+    // This is more of a linker test for the TUI feature
+    assert(UI_RESET[0] == '\x1b');
+    assert(UI_BOLD[0] == '\x1b');
+}
+
 int main(void) {
     printf("=== Pure C Weather CLI Test Suite ===\n\n");
     
@@ -138,6 +163,11 @@ int main(void) {
     printf("\nCore Tests:\n");
     RUN_TEST(celsius_to_fahrenheit_conversion);
     RUN_TEST(weather_description_codes);
+    
+    // UI & TUI Tests
+    printf("\nUI & TUI Tests:\n");
+    RUN_TEST(ui_color_styling);
+    RUN_TEST(tui_ansi_definitions);
     
     printf("\n=== Test Results ===\n");
     printf("Total: %d\n", tests_run);

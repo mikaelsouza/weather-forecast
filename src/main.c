@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../include/weather.h"
 #include "../include/ui.h"
+#include "../include/tui.h"
 
 #define VERSION "1.0.0"
 
@@ -10,12 +11,14 @@ static void print_help(void) {
     printf("\nSupreme Weather Forecast CLI 🌤️  (Pure C Edition)\n\n");
     printf("USAGE:\n");
     printf("    weather-cli [CITY]\n");
+    printf("    weather-cli --tui\n");
     printf("    weather-cli --help\n");
     printf("    weather-cli --version\n\n");
     printf("If no CITY is provided, the application starts in interactive mode.\n\n");
     printf("FLAGS:\n");
     printf("    -h, --help       Prints help information\n");
-    printf("    -v, --version    Prints version information\n\n");
+    printf("    -v, --version    Prints version information\n");
+    printf("    --tui            Launch interactive TUI mode\n\n");
 }
 
 static void interactive_mode(void) {
@@ -72,6 +75,11 @@ int main(int argc, char* argv[]) {
         
         if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0) {
             printf("weather-cli v%s\n", VERSION);
+            return 0;
+        }
+        
+        if (strcmp(argv[1], "--tui") == 0) {
+            launch_tui();
             return 0;
         }
         

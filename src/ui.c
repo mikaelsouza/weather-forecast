@@ -15,7 +15,7 @@
 #define WHITE   "\x1b[37m"
 #define GREY    "\x1b[90m"
 
-static const char* style_condition_color(int code) {
+const char* style_condition_color(int code) {
     if (code == 0 || code == 1) return YELLOW;
     if (code >= 2 && code <= 48) return GREY;
     if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return BLUE;
@@ -24,7 +24,7 @@ static const char* style_condition_color(int code) {
     return RESET;
 }
 
-static const char* style_temp_color(double temp, int is_max) {
+const char* style_temp_color(double temp, int is_max) {
     if (is_max) {
         if (temp > 30.0) return RED;
         if (temp > 20.0) return YELLOW;

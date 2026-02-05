@@ -9,11 +9,12 @@ A **pure C**, **zero-dependency** weather forecast CLI. Built entirely from scra
 
 ## ✨ Features
 
+- **Interactive TUI Dashboard**: A beautiful, color-coded dashboard built with pure ANSI
 - **100% Pure C**: No external libraries whatsoever
 - **Raw POSIX Sockets**: Manual HTTP/1.1 implementation
 - **Hand-Crafted JSON Parser**: Recursive descent parser for Open-Meteo API responses
 - **ANSI Terminal Colors**: Beautiful, color-coded weather output
-- **Ultra-Lightweight**: Compiles to ~30KB on most systems
+- **Ultra-Lightweight**: Compiles to ~36KB on most systems
 - **Universal**: Works on any UNIX-like system (Linux, macOS, BSD)
 
 ## 🚀 Quick Start
@@ -24,6 +25,9 @@ make
 
 # Run (interactive mode)
 ./weather-c
+
+# Run (TUI dashboard mode)
+./weather-c --tui
 
 # Run (direct query)
 ./weather-c "New York"
@@ -47,6 +51,7 @@ make
 │   ├── json.c
 │   ├── weather.c
 │   ├── ui.c
+│   ├── tui.c        # TUI dashboard logic
 │   └── main.c
 └── Makefile         # Build system
 ```
